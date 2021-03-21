@@ -1,5 +1,6 @@
 package cc.wuque.controller;
 
+import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -84,6 +85,7 @@ public class UtilController {
             //将c放入到StringBuffer中去
             sb.append(c);
         }
+
         return sb.toString();
     }
 }
