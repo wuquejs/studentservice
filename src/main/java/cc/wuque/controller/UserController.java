@@ -1,8 +1,9 @@
 package cc.wuque.controller;
 
+import cc.wuque.domain.ResultInfo;
 import cc.wuque.domain.User;
-import cc.wuque.mapper.UserMapper;
 import cc.wuque.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.net.http.HttpRequest;
+import java.io.IOException;
+
 
 /**
  * @Author 无缺
@@ -24,7 +27,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
     /**
      * 注册用户
      * @param user
@@ -33,17 +35,22 @@ public class UserController {
      * @return
      */
     @RequestMapping("/register")
-    public String register(User user,@RequestParam("checkCode") String checkCode,HttpServletRequest request){
+    public ResultInfo register(User user, @RequestParam("checkCode") String checkCode, HttpServletRequest request){
         //获取存放在session中的验证码，并强转为String类型，用于比较
         String checkcode_server = (String) request.getSession().getAttribute("CHECKCODE_SERVER");
         //删除保存在session中的验证码，保证验证码只能被使用一次
         request.getSession().removeAttribute("CHECKCODE_SERVER");
+        ResultInfo resultInfo = new ResultInfo();
         if (checkcode_server == null || !checkcode_server.equals(checkCode)){
-            return "验证码错误";
+            resultInfo.setFlag(false);
+            resultInfo.setMsg("验证码错误");
+            return resultInfo;
 
         }
         userService.register(user);
-        return "注册成功";
+        resultInfo.setFlag(true);
+        resultInfo.setMsg("验证码错误");
+        return resultInfo;
     }
 
     /**
@@ -52,9 +59,13 @@ public class UserController {
      * @return
      */
     @RequestMapping("/findbyusername")
-    public boolean findByUsername(@RequestParam("username") String username){
-        boolean b = userService.findByUsername(username);
-        return b;
+    public ResultInfo findByUsername(@RequestParam("username") String username){
+        ResultInfo resultInfo = new ResultInfo(true,null,"用户名不存在");
+        if (userService.findByUsername(username)){
+            resultInfo.setFlag(false);
+            resultInfo.setMsg("用户名已存在");
+        }
+        return resultInfo;
 
     }
 
@@ -66,27 +77,49 @@ public class UserController {
      * @return
      */
     @RequestMapping("/login")
-    public String loginByUsernameAndPassword(HttpServletRequest request, User user, @RequestParam("checkCode") String checkCode){
+    public ResultInfo loginByUsernameAndPassword(HttpServletRequest request, User user, @RequestParam("checkCode") String checkCode){
         //获取session
         HttpSession session = request.getSession();
         //获取session中的验证码，并强转为String类型
         String checkcode_server = (String) session.getAttribute("CHECKCODE_SERVER");
         //删除session中的验证码，保证验证码只能被使用一次
         session.removeAttribute("CHECKCODE_SERVER");
+        ResultInfo resultInfo = new ResultInfo();
         if (checkcode_server == null || !checkcode_server.equals(checkCode)){
-            return "验证码错误";
-
+            resultInfo.setFlag(false);
+            resultInfo.setMsg("验证码错误");
+            return resultInfo;
         }
         //调用service中的登录方法
         User u = userService.loginByUsernameAndPassword(user);
         //判断u是否为空
         if (u != null){
             session.setAttribute("user",u);
-            return "登录成功";
+            resultInfo.setFlag(true);
+            resultInfo.setMsg("登录成功");
+            resultInfo.setData(u);
+            return resultInfo;
         }else {
-            return "账号或密码错误";
+            resultInfo.setFlag(false);
+            resultInfo.setMsg("账号或密码错误");
+            return resultInfo;
         }
 
+    }
+
+    /**
+     * 退出当前账户
+     * @param request
+     * @param response
+     */
+    @RequestMapping("/exit")
+    public void exit(HttpServletRequest request, HttpServletResponse response){
+        request.getSession().invalidate();
+        try {
+            response.sendRedirect("/login.html");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
