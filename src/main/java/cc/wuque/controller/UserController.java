@@ -7,6 +7,7 @@ import cc.wuque.service.UserService;
 import cc.wuque.util.CheckCodeUtil;
 import cc.wuque.util.SmsUtil;
 import com.tencentcloudapi.sms.v20190711.models.SendSmsResponse;
+import com.tencentcloudapi.sms.v20190711.models.SendStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -200,14 +201,15 @@ public class UserController {
     @RequestMapping("/getchecknum")
     public ResultInfo getCheckCodeNum(@RequestParam("phoneNumber") String phoneNumber,HttpServletRequest request){
         String codeNum = CheckCodeUtil.getCheckCodeNum();
-        ResultInfo resultInfo = new ResultInfo(false,null,"发送失败");
+
         SendSmsResponse sendSmsResponse = smsUtil.sendSms(phoneNumber, codeNum);
         System.out.println(sendSmsResponse.getSendStatusSet());
         System.out.println(sendSmsResponse.getRequestId());
-        if (sendSmsResponse.getRequestId() == "OK" && sendSmsResponse.getSendStatusSet().equals("OK")){
+        SendStatus[] s = sendSmsResponse.getSendStatusSet();
+        ResultInfo resultInfo = new ResultInfo(false,null,s[0].getMessage());
+        if (s[0].getCode() == "OK" && s[0].getCode().equals("OK")){
             request.getSession().setAttribute("PHONE_NUMBER_CHECKCODE",codeNum);
             resultInfo.setFlag(true);
-            resultInfo.setMsg("发送成功");
             return resultInfo;
         }
         return resultInfo;
