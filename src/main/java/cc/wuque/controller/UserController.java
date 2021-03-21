@@ -4,20 +4,28 @@ import cc.wuque.domain.ResultInfo;
 import cc.wuque.domain.User;
 import cc.wuque.service.UserService;
 
+import cc.wuque.util.CheckCodeUtil;
+import cc.wuque.util.SmsUtil;
+import com.tencentcloudapi.sms.v20190711.models.SendSmsResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.imageio.ImageIO;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
 
 
 /**
+ *
  * @Author 无缺
  * @Date 2021/3/19 21:27
  */
@@ -28,6 +36,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private SmsUtil smsUtil;
     /**
      * 注册用户
      * @param user
@@ -122,12 +132,85 @@ public class UserController {
         }
     }
 
+    /**
+     * 查询所有用户
+     * @return
+     */
     @RequestMapping("/querylist")
     public ResultInfo queryListUser(){
         List<User> userList = userService.queryListUser();
         ResultInfo resultInfo = new ResultInfo(true, userList, "查询成功");
         return resultInfo;
     }
+    /**
+     * 获取一个随机的6位验证码
+     * 图片大小：100 x 30
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    @RequestMapping("/checkCode")
+    public void checkCode(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //服务器通知浏览器不要缓存
+        response.setHeader("pragma","no-cache");
+        response.setHeader("cache-control","no-cache");
+        response.setHeader("expires","0");
 
+        //在内存中创建一个长80，宽30的图片，默认黑色背景
+        //参数一：长
+        //参数二：宽
+        //参数三：颜色
+        int width = 100;
+        int height = 30;
+        BufferedImage image = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
+
+        //获取画笔
+        Graphics g = image.getGraphics();
+        //设置画笔颜色为灰色
+        g.setColor(Color.GRAY);
+        //填充图片
+        g.fillRect(0,0, width,height);
+
+        //产生6个随机验证码，
+        String checkCode = CheckCodeUtil.getCheckCode();
+        //将验证码放入HttpSession中
+        request.getSession().setAttribute("CHECKCODE_SERVER",checkCode);
+
+        //设置画笔颜色为黄色
+        g.setColor(Color.YELLOW);
+        //设置字体的小大
+        g.setFont(new Font("黑体",Font.BOLD,24));
+        //向图片上写入验证码
+        g.drawString(checkCode,15,25);
+
+        //将内存中的图片输出到浏览器
+        //参数一：图片对象
+        //参数二：图片的格式，如PNG,JPG,GIF
+        //参数三：图片输出到哪里去
+        ImageIO.write(image,"PNG",response.getOutputStream());
+    }
+
+    /**
+     * 发送一个六位数的手机验证码
+     * @param phoneNumber
+     * @param request
+     * @return
+     */
+    @RequestMapping("/getchecknum")
+    public ResultInfo getCheckCodeNum(@RequestParam("phoneNumber") String phoneNumber,HttpServletRequest request){
+        String codeNum = CheckCodeUtil.getCheckCodeNum();
+        ResultInfo resultInfo = new ResultInfo(false,null,"发送失败");
+        SendSmsResponse sendSmsResponse = smsUtil.sendSms(phoneNumber, codeNum);
+        System.out.println(sendSmsResponse.getSendStatusSet());
+        System.out.println(sendSmsResponse.getRequestId());
+        if (sendSmsResponse.getRequestId() == "OK" && sendSmsResponse.getSendStatusSet().equals("OK")){
+            request.getSession().setAttribute("PHONE_NUMBER_CHECKCODE",codeNum);
+            resultInfo.setFlag(true);
+            resultInfo.setMsg("发送成功");
+            return resultInfo;
+        }
+        return resultInfo;
+    }
 
 }
