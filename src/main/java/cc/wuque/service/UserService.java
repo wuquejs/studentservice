@@ -3,6 +3,8 @@ package cc.wuque.service;
 import cc.wuque.domain.User;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @Author 无缺
  * @Date 2021/3/19 21:33
@@ -31,4 +33,5 @@ public interface UserService {
      */
     User loginByUsernameAndPassword(User user);
 
+    List<User> queryListUser();
 }

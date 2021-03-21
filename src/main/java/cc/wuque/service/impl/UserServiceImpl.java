@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @Author 无缺
  * @Date 2021/3/19 21:34
@@ -41,5 +43,10 @@ public class UserServiceImpl implements UserService {
     public User loginByUsernameAndPassword(User user) {
         return userMapper.loginByUsernameAndPassword(user);
 
+    }
+
+    @Override
+    public List<User> queryListUser() {
+        return userMapper.queryUserList();
     }
 }

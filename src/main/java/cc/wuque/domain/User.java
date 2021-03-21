@@ -1,11 +1,13 @@
 package cc.wuque.domain;
 
+import java.io.Serializable;
+
 /**
  * @Author 无缺
  * @Date 2021/3/19 21:21
  * 用户实体类
  */
-public class User {
+public class User implements Serializable {
     private String uid;
     private String username;
     private String password;

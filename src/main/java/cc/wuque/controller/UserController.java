@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 
 /**
@@ -61,12 +62,11 @@ public class UserController {
     @RequestMapping("/findbyusername")
     public ResultInfo findByUsername(@RequestParam("username") String username){
         ResultInfo resultInfo = new ResultInfo(true,null,"用户名不存在");
-        if (userService.findByUsername(username)){
+        if (!userService.findByUsername(username)){
             resultInfo.setFlag(false);
             resultInfo.setMsg("用户名已存在");
         }
         return resultInfo;
-
     }
 
     /**
@@ -120,6 +120,13 @@ public class UserController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @RequestMapping("/querylist")
+    public ResultInfo queryListUser(){
+        List<User> userList = userService.queryListUser();
+        ResultInfo resultInfo = new ResultInfo(true, userList, "查询成功");
+        return resultInfo;
     }
 
 
