@@ -18,8 +18,6 @@ public class ResultInfo implements Serializable {
     public ResultInfo() {
     }
 
-
-
     public ResultInfo(boolean flag, Object data, String msg) {
         this.flag = flag;
         this.data = data;

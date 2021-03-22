@@ -6,9 +6,15 @@
         select * from p_category
     </select>
     <select id="isCategory" resultType="cc.wuque.domain.Category">
-        select cname from p_category where cname = #{cname}
+        select * from p_category where cname = #{cname}
     </select>
     <insert id="addCategory">
         insert into p_category(cname) value (#{cname})
     </insert>
+    <select id="findOneByCid" resultType="cc.wuque.domain.Category">
+        select * from p_category where cid = #{cid}
+    </select>
+    <update id="updateCategory">
+        update p_category set cname = #{cname} where cid = #{cid}
+    </update>
 </mapper>

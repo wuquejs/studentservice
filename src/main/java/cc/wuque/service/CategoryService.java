@@ -17,8 +17,30 @@ public interface CategoryService {
      */
     List<Category> findAllByCategory();
 
+    /**
+     * 查询判断分类是否存在
+     * @param cname
+     * @return
+     */
     boolean isCategory(String cname);
 
+    /**
+     * 添加分类
+     * @param category
+     * @return
+     */
     boolean addCategory(Category category);
 
+    /**
+     * 根据cid查询分类
+     * @param cid
+     * @return
+     */
+    Category findOneByCid(String cid);
+
+    /**
+     * 根据cid更新分类
+     * @param c
+     */
+    void updateCategory(Category c);
 }

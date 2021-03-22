@@ -55,4 +55,23 @@ public class CategoryController {
         }
     }
 
+    /**
+     * 更新分类
+     * @param category
+     * @return
+     */
+    @RequestMapping("/updateCategory")
+    public ResultInfo updateCategory(Category category){
+       Category c =  CategoryService.findOneByCid(category.getCid());
+       if (c != null){
+           c.setCname(category.getCname());
+           CategoryService.updateCategory(c);
+           List<Category> categorys = CategoryService.findAllByCategory();
+           return new ResultInfo(true,categorys,"更新成功");
+       }else {
+           List<Category> categorys = CategoryService.findAllByCategory();
+           return new ResultInfo(false,categorys,"所选分类不存在，更新失败！");
+       }
+    }
+
 }

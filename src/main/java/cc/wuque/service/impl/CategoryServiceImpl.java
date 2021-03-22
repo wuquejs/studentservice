@@ -42,4 +42,14 @@ public class CategoryServiceImpl implements CategoryService {
             return false;
         }
     }
+
+    @Override
+    public Category findOneByCid(String cid) {
+        return categoryMapper.findOneByCid(cid);
+    }
+
+    @Override
+    public void updateCategory(Category c) {
+        categoryMapper.updateCategory(c);
+    }
 }
