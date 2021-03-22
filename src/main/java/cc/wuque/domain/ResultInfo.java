@@ -1,5 +1,8 @@
 package cc.wuque.domain;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
 import java.io.Serializable;
 
 /**
@@ -10,11 +13,12 @@ import java.io.Serializable;
 public class ResultInfo implements Serializable {
     private boolean flag;
     private Object data;
+    private String msg;
 
     public ResultInfo() {
     }
 
-    private String msg;
+
 
     public ResultInfo(boolean flag, Object data, String msg) {
         this.flag = flag;

@@ -1,6 +1,7 @@
 package cc.wuque.service;
 
 import cc.wuque.domain.Category;
+import cc.wuque.domain.ResultInfo;
 
 import java.util.List;
 
@@ -10,6 +11,14 @@ import java.util.List;
  */
 public interface CategoryService {
 
+    /**
+     * 查询所有分类
+     * @return
+     */
     List<Category> findAllByCategory();
+
+    boolean isCategory(String cname);
+
+    boolean addCategory(Category category);
 
 }

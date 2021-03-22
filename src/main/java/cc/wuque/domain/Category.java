@@ -11,24 +11,24 @@ public class Category implements Serializable {
 
 
     //分类id
-    private int rid;
+    private String cid;
     //分类名
     private String cname;
 
     @Override
     public String toString() {
         return "Category{" +
-                "rid=" + rid +
+                "rid=" + cid +
                 ", rname='" + cname + '\'' +
                 '}';
     }
 
-    public int getRid() {
-        return rid;
+    public String getCid() {
+        return cid;
     }
 
-    public void setRid(int rid) {
-        this.rid = rid;
+    public void setcid(String cid) {
+        this.cid = cid;
     }
 
     public String getCname() {

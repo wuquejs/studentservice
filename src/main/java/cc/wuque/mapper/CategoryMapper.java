@@ -12,6 +12,13 @@ import java.util.List;
 @Mapper
 public interface CategoryMapper {
 
+    /**
+     * 查询所有分类
+     * @return
+     */
     List<Category> findAllCategory();
 
+    Category isCategory(String cname);
+
+    void addCategory(Category category);
 }

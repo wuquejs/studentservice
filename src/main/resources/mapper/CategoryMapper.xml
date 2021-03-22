@@ -5,4 +5,10 @@
     <select id="findAllCategory" resultType="cc.wuque.domain.Category">
         select * from p_category
     </select>
+    <select id="isCategory" resultType="cc.wuque.domain.Category">
+        select cname from p_category where cname = #{cname}
+    </select>
+    <insert id="addCategory">
+        insert into p_category(cname) value (#{cname})
+    </insert>
 </mapper>
