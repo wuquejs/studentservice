@@ -43,4 +43,10 @@ public interface CategoryService {
      * @param c
      */
     void updateCategory(Category c);
+
+    /**
+     * 根据cid查询分类
+     * @param cid
+     */
+    void deleteCategory(String cid);
 }

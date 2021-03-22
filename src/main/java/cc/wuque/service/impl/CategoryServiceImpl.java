@@ -52,4 +52,9 @@ public class CategoryServiceImpl implements CategoryService {
     public void updateCategory(Category c) {
         categoryMapper.updateCategory(c);
     }
+
+    @Override
+    public void deleteCategory(String cid) {
+        categoryMapper.deleteCategory(cid);
+    }
 }

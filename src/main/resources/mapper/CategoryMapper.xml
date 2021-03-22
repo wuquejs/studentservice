@@ -17,4 +17,7 @@
     <update id="updateCategory">
         update p_category set cname = #{cname} where cid = #{cid}
     </update>
+    <delete id="deleteCategory" >
+        delete from p_category where cid = #{cid}
+    </delete>
 </mapper>

@@ -74,4 +74,22 @@ public class CategoryController {
        }
     }
 
+    /**
+     * 删除分类
+     * @param category
+     * @return
+     */
+    @RequestMapping("/deleteCategory")
+    public ResultInfo deleteCategory(Category category){
+        Category c =  CategoryService.findOneByCid(category.getCid());
+        if (c != null){
+            CategoryService.deleteCategory(category.getCid());
+            List<Category> categorys = CategoryService.findAllByCategory();
+            return new ResultInfo(true,categorys,"删除成功");
+        }else {
+            List<Category> categorys = CategoryService.findAllByCategory();
+            return new ResultInfo(false,categorys,"所选分类不存在，删除失败！");
+        }
+    }
+
 }
