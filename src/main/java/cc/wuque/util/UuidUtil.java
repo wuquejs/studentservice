@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import java.util.UUID;
 
 /**
+ * 生成uuid工具类
  * @Author 无缺
  * @Date 2021/3/21 14:55
  */

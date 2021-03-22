@@ -33,5 +33,9 @@ public interface UserService {
      */
     User loginByUsernameAndPassword(User user);
 
+    /**
+     * 查询所有用户
+     * @return
+     */
     List<User> queryListUser();
 }

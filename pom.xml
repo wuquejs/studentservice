@@ -10,7 +10,7 @@
     </parent>
     <groupId>cc.wuque</groupId>
     <artifactId>studentservice</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>studentservice</name>
     <description>StudentService</description>
     <properties>

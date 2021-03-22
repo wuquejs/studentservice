@@ -32,7 +32,7 @@ import java.util.List;
  */
 @Controller
 @ResponseBody
-@RequestMapping("/user")
+@RequestMapping(value = "/user", produces="application/json;charset=UTF-8")
 public class UserController {
 
     @Autowired
@@ -71,6 +71,7 @@ public class UserController {
      * @return
      */
     @RequestMapping("/findbyusername")
+    @ResponseBody
     public ResultInfo findByUsername(@RequestParam("username") String username){
         ResultInfo resultInfo = new ResultInfo(true,null,"用户名不存在");
         if (!userService.findByUsername(username)){
@@ -198,7 +199,7 @@ public class UserController {
      * @param request
      * @return
      */
-    @RequestMapping("/getchecknum")
+    @RequestMapping("/getCheckNum")
     public ResultInfo getCheckCodeNum(@RequestParam("phoneNumber") String phoneNumber,HttpServletRequest request){
         String codeNum = CheckCodeUtil.getCheckCodeNum();
 
