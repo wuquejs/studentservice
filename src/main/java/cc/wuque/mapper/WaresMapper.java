@@ -1,6 +1,9 @@
 package cc.wuque.mapper;
 
+import cc.wuque.domain.Wares;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * @Author 无缺
@@ -10,5 +13,10 @@ import org.apache.ibatis.annotations.Mapper;
 public interface WaresMapper {
 
 
+    void addWares(Wares wares);
 
+
+    void addWaresImg(String pid, String bigimg);
+
+    String getPid(String pflag);
 }

@@ -1,6 +1,7 @@
 package cc.wuque.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,8 +28,13 @@ public class Wares implements Serializable {
     private int count;
     //分类id
     private String cid;
+
+
+
+    //商品主图
+    private String img;
     //商品图片
-    private List<String> pimage;
+    private List<String> pimage = new ArrayList<>();
     //卖家id
     private String uid;
 
@@ -121,8 +127,13 @@ public class Wares implements Serializable {
     }
 
     public void setPimage(List<String> pimage) {
+
         this.pimage = pimage;
     }
+    public void setPimage(String pimg){
+        pimage.add(pimg);
+    }
+
 
     public String getUid() {
         return uid;
@@ -131,4 +142,14 @@ public class Wares implements Serializable {
     public void setUid(String uid) {
         this.uid = uid;
     }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+
 }

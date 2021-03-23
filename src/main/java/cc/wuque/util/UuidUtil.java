@@ -2,6 +2,7 @@ package cc.wuque.util;
 
 import org.springframework.stereotype.Component;
 
+import java.util.Random;
 import java.util.UUID;
 
 /**
@@ -16,5 +17,12 @@ public class UuidUtil {
     public static String getUuid() {
         return UUID.randomUUID().toString().replace("-", "");
     }
+
+    public static String getRandom(int bound){
+        Random random = new Random();
+        return String.valueOf(random.nextInt(bound));
+    }
+
+
 
 }

@@ -1,5 +1,6 @@
 package cc.wuque.controller;
 
+import cc.wuque.StudentserviceApplication;
 import cc.wuque.domain.ResultInfo;
 import cc.wuque.domain.User;
 import cc.wuque.service.UserService;
@@ -7,6 +8,8 @@ import cc.wuque.util.CheckCodeUtil;
 import cc.wuque.util.SmsUtil;
 import com.tencentcloudapi.sms.v20190711.models.SendSmsResponse;
 import com.tencentcloudapi.sms.v20190711.models.SendStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +36,8 @@ import java.util.List;
 @RequestMapping(value = "/user", produces = "application/json;charset=UTF-8")
 public class UserController {
 
+    public Logger log = LoggerFactory.getLogger(StudentserviceApplication.class);
+
     @Autowired
     private UserService userService;
     @Autowired
@@ -53,6 +58,7 @@ public class UserController {
         //删除保存在session中的验证码，保证验证码只能被使用一次
         request.getSession().removeAttribute("CHECKCODE_SERVER");
         ResultInfo resultInfo = new ResultInfo();
+
         if (checkcode_server == null || !checkcode_server.equalsIgnoreCase(checkCode)) {
             resultInfo.setFlag(false);
             resultInfo.setMsg("验证码错误");
@@ -99,6 +105,8 @@ public class UserController {
         //删除session中的验证码，保证验证码只能被使用一次
         session.removeAttribute("CHECKCODE_SERVER");
         ResultInfo resultInfo = new ResultInfo();
+        log.info("checkcode_server = " + checkcode_server);
+        log.info("checkCode = " + checkCode);
         if (checkcode_server == null || !checkcode_server.equalsIgnoreCase(checkCode)) {
             resultInfo.setFlag(false);
             resultInfo.setMsg("验证码错误");

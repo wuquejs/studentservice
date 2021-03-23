@@ -34,8 +34,7 @@ public class TestController {
             // 根据键值取session中的值
             Object vakue = session.getAttribute(name);
             log.info("------" + name + ":" + vakue + "--------\n");
-            // 打印结果
-            System.out.println("------" + name + ":" + vakue + "--------\n");
+
         }
     }
 }

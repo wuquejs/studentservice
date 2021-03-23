@@ -2,5 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cc.wuque.mapper.WaresMapper">
-
+    <insert id="addWares" >
+            insert into p_wares(pname,price,waresIntroduce,pdate,cid,uid,pflag,pimage) value (#{pname},#{price},#{waresIntroduce},#{pdate},#{cid},#{uid},#{pflag},#{img})
+    </insert>
+    <insert id="addWaresImg" >
+        insert into p_wares_img(pid,bigimg) value (#{pid},#{bigimg})
+    </insert>
+    <select id="getPid" resultType="String">
+        select pid from p_wares where pflag = #{pflag}
+    </select>
 </mapper>
