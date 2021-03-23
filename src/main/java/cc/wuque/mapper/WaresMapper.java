@@ -19,4 +19,14 @@ public interface WaresMapper {
     void addWaresImg(String pid, String bigimg);
 
     String getPid(String pflag);
+
+    List<Wares> findAllWares();
+
+    Wares findWaresByPid(String pid);
+
+    Wares findWaresByFlag(String pflag);
+
+    List<Wares> findWaresByCid(String cid);
+
+    List<Wares> findWaresByUid(String uid);
 }

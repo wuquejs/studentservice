@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @Author 无缺
  * @Date 2021/3/22 17:30
@@ -32,5 +34,30 @@ public class WaresImpl implements WaresService {
         }
 
 
+    }
+
+    @Override
+    public List<Wares> findAllWares() {
+        return waresMapper.findAllWares();
+    }
+
+    @Override
+    public Wares findWaresByPid(String pid) {
+        return waresMapper.findWaresByPid(pid);
+    }
+
+    @Override
+    public List<Wares> findWaresByUid(String uid) {
+        return waresMapper.findWaresByUid(uid);
+    }
+
+    @Override
+    public List<Wares> findWaresByCid(String cid) {
+        return waresMapper.findWaresByCid(cid);
+    }
+
+    @Override
+    public Wares findWaresByFlag(String pflag) {
+        return waresMapper.findWaresByFlag(pflag);
     }
 }

@@ -2,13 +2,40 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cc.wuque.mapper.WaresMapper">
+    <!--添加数据-->
     <insert id="addWares" >
             insert into p_wares(pname,price,waresIntroduce,pdate,cid,uid,pflag,pimage) value (#{pname},#{price},#{waresIntroduce},#{pdate},#{cid},#{uid},#{pflag},#{img})
     </insert>
+    <!--添加图片-->
     <insert id="addWaresImg" >
         insert into p_wares_img(pid,bigimg) value (#{pid},#{bigimg})
     </insert>
+    <!--根据pflag查找pid-->
     <select id="getPid" resultType="String">
         select pid from p_wares where pflag = #{pflag}
+    </select>
+    <!--查询全部商品-->
+    <select id="findAllWares" resultType="cc.wuque.domain.Wares">
+        select * from p_wares
+    </select>
+    <!--根据pid查找商品-->
+    <select id="findWaresByPid" resultType="cc.wuque.domain.Wares">
+        select * from p_wares where pid = #{pid}
+    </select>
+    <!--根据pflag查找商品-->
+    <select id="findWaresByFlag" resultType="cc.wuque.domain.Wares">
+        select * from p_wares where pflag = #{pfalg}
+    </select>
+    <!--根据cid查找商品-->
+    <select id="findWaresByCid" resultType="cc.wuque.domain.Wares">
+        select * from p_wares where cid = #{cid}
+    </select>
+    <!--根据uid查找商品-->
+    <select id="findWaresByUid" resultType="cc.wuque.domain.Wares">
+        select * from p_wares where uid = #{uid}
+    </select>
+    <!--根据商品的pid查找商品的图片-->
+    <select id="findWaresImagesByPid" resultType="cc.wuque.domain.WaresImages">
+        select * from p_wares_img where pid = #{pid}
     </select>
 </mapper>
