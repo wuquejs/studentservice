@@ -1,12 +1,10 @@
 package cc.wuque.domain;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
 import java.io.Serializable;
 
 /**
  * 用于返回请求的状态信息和序列化后的对象
+ *
  * @Author 无缺
  * @Date 2021/3/21 16:29
  */
