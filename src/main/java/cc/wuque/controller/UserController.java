@@ -53,7 +53,7 @@ public class UserController {
         //删除保存在session中的验证码，保证验证码只能被使用一次
         request.getSession().removeAttribute("CHECKCODE_SERVER");
         ResultInfo resultInfo = new ResultInfo();
-        if (checkcode_server == null || !checkcode_server.equals(checkCode)) {
+        if (checkcode_server == null || !checkcode_server.equalsIgnoreCase(checkCode)) {
             resultInfo.setFlag(false);
             resultInfo.setMsg("验证码错误");
             return resultInfo;
@@ -99,7 +99,7 @@ public class UserController {
         //删除session中的验证码，保证验证码只能被使用一次
         session.removeAttribute("CHECKCODE_SERVER");
         ResultInfo resultInfo = new ResultInfo();
-        if (checkcode_server == null || !checkcode_server.equals(checkCode)) {
+        if (checkcode_server == null || !checkcode_server.equalsIgnoreCase(checkCode)) {
             resultInfo.setFlag(false);
             resultInfo.setMsg("验证码错误");
             return resultInfo;

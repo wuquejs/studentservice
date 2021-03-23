@@ -1,0 +1,8 @@
+POST http://localhost:80/api/item
+Content-Type: application/json
+
+{}
+
+###
+POST http://localhost:8080/wares/addwares
+Content-Type: application/json

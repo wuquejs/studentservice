@@ -1,0 +1,4 @@
+##上传图片文件
+http://localhost:8080/file/uploadImg
+###仅允许post请求，参数名：imgFile
+###返回值：resultInfo.msg图片的相对路径
