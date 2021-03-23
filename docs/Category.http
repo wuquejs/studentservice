@@ -4,6 +4,7 @@ http://localhost:8080/category/findAll
 
 //添加分类
 http://localhost:8080/category/addCategory?cname=分类名
+
 ###返回结果:ResultInfo
 ###会判断分类名是否存在，如果存在则返回false
 

@@ -1,7 +1,6 @@
 package cc.wuque.service;
 
 import cc.wuque.domain.Category;
-import cc.wuque.domain.ResultInfo;
 
 import java.util.List;
 
@@ -13,12 +12,14 @@ public interface CategoryService {
 
     /**
      * 查询所有分类
+     *
      * @return
      */
     List<Category> findAllByCategory();
 
     /**
      * 查询判断分类是否存在
+     *
      * @param cname
      * @return
      */
@@ -26,6 +27,7 @@ public interface CategoryService {
 
     /**
      * 添加分类
+     *
      * @param category
      * @return
      */
@@ -33,6 +35,7 @@ public interface CategoryService {
 
     /**
      * 根据cid查询分类
+     *
      * @param cid
      * @return
      */
@@ -40,12 +43,14 @@ public interface CategoryService {
 
     /**
      * 根据cid更新分类
+     *
      * @param c
      */
     void updateCategory(Category c);
 
     /**
      * 根据cid查询分类
+     *
      * @param cid
      */
     void deleteCategory(String cid);

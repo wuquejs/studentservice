@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * 分类实体类
+ *
  * @Author 无缺
  * @Date 2021/3/21 17:17
  */

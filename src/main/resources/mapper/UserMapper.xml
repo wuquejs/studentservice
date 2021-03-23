@@ -3,16 +3,22 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cc.wuque.mapper.UserMapper">
     <select id="queryUserList" resultType="cc.wuque.domain.User">
-        select * from s_users
+        select *
+        from s_users
     </select>
     <select id="findByUsername" resultType="String">
-        select username from s_users where username = #{username}
+        select username
+        from s_users
+        where username = #{username}
     </select>
     <insert id="register">
-        insert into s_users(username,password) value (#{username},#{password})
+        insert into s_users(username, password) value (#{username},#{password})
     </insert>
     <select id="loginByUsernameAndPassword" resultType="cc.wuque.domain.User">
-        select * from s_users where username = #{username} and password = #{password}
+        select *
+        from s_users
+        where username = #{username}
+          and password = #{password}
     </select>
 </mapper>
 

@@ -1,7 +1,6 @@
 package cc.wuque.service;
 
 import cc.wuque.domain.User;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -15,6 +14,7 @@ public interface UserService {
 
     /**
      * 查询用户名是否唯一
+     *
      * @param username
      * @return
      */
@@ -22,12 +22,14 @@ public interface UserService {
 
     /**
      * 注册用户
+     *
      * @param user
      */
     void register(User user);
 
     /**
      * 使用用户名和密码登录
+     *
      * @param user
      * @return
      */
@@ -35,6 +37,7 @@ public interface UserService {
 
     /**
      * 查询所有用户
+     *
      * @return
      */
     List<User> queryListUser();

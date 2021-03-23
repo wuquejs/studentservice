@@ -6,6 +6,7 @@ import java.util.Random;
 
 /**
  * 验证码生成工具类
+ *
  * @Author 无缺
  * @Date 2021/3/22 0:49
  */
@@ -22,6 +23,7 @@ public class CheckCodeUtil {
 
     /**
      * 随机生成验证码
+     *
      * @param base
      * @return
      */
@@ -42,9 +44,10 @@ public class CheckCodeUtil {
 
     /**
      * 生成数字验证码
+     *
      * @return
      */
-    public static String getCheckCodeNum(){
+    public static String getCheckCodeNum() {
         String base = "0123456789";
         return getString(base);
     }

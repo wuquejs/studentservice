@@ -4,6 +4,7 @@ http://localhost:8080/user/checkCode
 
 ##获取手机验证码
 http://localhost:8080/user/getCheckNum?phoneNumber=手机号
+
 ####返回值：ResultInfo
 
 ####查询username是否重复
@@ -13,6 +14,7 @@ http://localhost:8080/user/findByUsername?username=username
 
 ##注册用户
 http://localhost:8080/user/register
+
 ###必填参数checkCode
 ###可选参数 User类
 ##返回值resultInfo

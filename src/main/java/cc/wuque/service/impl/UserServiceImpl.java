@@ -22,14 +22,13 @@ public class UserServiceImpl implements UserService {
     public boolean findByUsername(String username) {
         boolean result = false;
         String s = userMapper.findByUsername(username);
-        if (userMapper.findByUsername(username) == null){
+        if (userMapper.findByUsername(username) == null) {
 
             result = true;
         }
 
         return result;
     }
-
 
 
     @Override

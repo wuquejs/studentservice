@@ -20,7 +20,7 @@ import java.io.Serializable;
  * @Date 2021/3/21 20:17
  */
 @Component
-@PropertySource(value = "classpath:config.properties",encoding = "UTF-8")
+@PropertySource(value = "classpath:config.properties", encoding = "UTF-8")
 public class SmsUtil implements Serializable {
 
     @Value("${tencent.secretId}")
@@ -35,8 +35,8 @@ public class SmsUtil implements Serializable {
     private String templateID;
 
 
-    public SendSmsResponse sendSms(String phoneNumber,String codeNum){
-        try{
+    public SendSmsResponse sendSms(String phoneNumber, String codeNum) {
+        try {
 
             Credential cred = new Credential(secretId, secretKey);
 

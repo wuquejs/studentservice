@@ -14,12 +14,14 @@ public interface CategoryMapper {
 
     /**
      * 查询所有分类
+     *
      * @return
      */
     List<Category> findAllCategory();
 
     /**
      * 查询分类是否存在
+     *
      * @param cname
      * @return
      */
@@ -27,12 +29,14 @@ public interface CategoryMapper {
 
     /**
      * 添加分类
+     *
      * @param category
      */
     void addCategory(Category category);
 
     /**
      * 根据cid查询分类
+     *
      * @param cid
      * @return
      */
@@ -40,12 +44,14 @@ public interface CategoryMapper {
 
     /**
      * 根据cid更新分类
+     *
      * @param c
      */
     void updateCategory(Category c);
 
     /**
      * 根据cid查询分类
+     *
      * @param cid
      */
     void deleteCategory(String cid);
