@@ -219,8 +219,6 @@ public class UserController {
         String codeNum = CheckCodeUtil.getCheckCodeNum();
 
         SendSmsResponse sendSmsResponse = smsUtil.sendSms(phoneNumber, codeNum);
-        System.out.println(sendSmsResponse.getSendStatusSet());
-        System.out.println(sendSmsResponse.getRequestId());
         SendStatus[] s = sendSmsResponse.getSendStatusSet();
         ResultInfo resultInfo = new ResultInfo(false, null, s[0].getMessage());
         if (s[0].getCode() == "OK" && s[0].getCode().equals("OK")) {

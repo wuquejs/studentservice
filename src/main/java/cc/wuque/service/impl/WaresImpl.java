@@ -65,4 +65,11 @@ public class WaresImpl implements WaresService {
     public void updateWares(Wares wares) {
         waresMapper.updateWares(wares);
     }
+
+    @Override
+    public void deleteWares(Wares wares) {
+        waresMapper.deleteWares(wares);
+    }
+
+
 }

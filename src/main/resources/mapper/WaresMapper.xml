@@ -39,6 +39,24 @@
         select * from p_wares_img where pid = #{pid}
     </select>
 
+<!--    <select id="findWares" resultType="cc.wuque.domain.Wares">
+        SELECT *
+        FROM p_wares
+        <where>
+            <choose>
+                <when test="pid != null and pid != ''">
+                    pid = #{pid}
+                </when>
+                <when test="pflag != null and pflag != ''">
+                    pflag = #{pflag}
+                </when>
+                <otherwise>
+                    1 != 1
+                </otherwise>
+            </choose>
+        </where>
+    </select>-->
+
     <!--更新商品-->
     <update id="updateWares">
         UPDATE p_wares
@@ -59,4 +77,47 @@
 
         </where>
     </update>
+    <!--更新商品-->
+    <!--<update id="updateWares">
+        UPDATE p_wares
+        <set>
+            <if test="pname != null">pname=#{pname},</if>
+            <if test="price != null">price=#{price},</if>
+            <if test="waresIntroduce != null">waresIntroduce=#{waresIntroduce},</if>
+            <if test="cid != null">cid=#{cid},</if>
+            <if test="img != null">img=#{img},</if>
+        </set>
+        <where>
+            <choose>
+            <when test="pid != null">
+                pid = #{pid}
+            </when>
+            <when test="pflag != null">
+                pflag = #{pflag}
+            </when>
+            <otherwise>
+                1 != 1
+            </otherwise>
+            </choose>
+
+        </where>
+    </update>-->
+
+    <delete id="deleteWares" >
+        delete from p_wares
+        <where>
+            <choose>
+                <when test="pid != null">
+                    pid = #{pid}
+                </when>
+                <when test="pflag != null">
+                    pflag = #{pflag}
+                </when>
+                <otherwise>
+                    1 != 1
+                </otherwise>
+            </choose>
+
+        </where>
+    </delete>
 </mapper>

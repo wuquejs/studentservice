@@ -3,3 +3,17 @@ POST http://localhost:8080/wares/addwares
 ####必须参数:   cid--->分类id  pname--->商品标题  price--->商品价格  waresIntroduce---->商品介绍
 ####pimage--->商品图片（List集合接收） img--->商品主图 可选参数如不选则使用默认图片
 
+####更新商品
+http://localhost:8080/wares/updatewares
+####pid--->商品id  pflag--->商品编号  二者必须传其一
+####可选参数 Wares实体类
+
+###查询全部商品商品
+http://localhost:8080/wares/findallwares
+###无参
+###返回ResultInfo
+
+###查询商品
+http://localhost:8080/wares/findwares
+###可选参数 pid--->商品id  pflag--->商品编号 uid--->用户id  cid--->分类id 四者必须传其一
+###返回ResultInfo
