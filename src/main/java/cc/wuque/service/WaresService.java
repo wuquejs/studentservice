@@ -24,4 +24,6 @@ public interface WaresService {
     List<Wares> findWaresByCid(String cid);
 
     Wares findWaresByFlag(String pflag);
+
+    void updateWares(Wares wares);
 }

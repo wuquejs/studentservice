@@ -60,4 +60,9 @@ public class WaresImpl implements WaresService {
     public Wares findWaresByFlag(String pflag) {
         return waresMapper.findWaresByFlag(pflag);
     }
+
+    @Override
+    public void updateWares(Wares wares) {
+        waresMapper.updateWares(wares);
+    }
 }

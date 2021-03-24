@@ -13,11 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -119,6 +114,18 @@ public class WaresController {
     public ResultInfo findWaresByUid(@RequestParam("uid") String uid){
         List<Wares> wares = waresService.findWaresByUid(uid);
         return new ResultInfo(true,wares,"查找成功");
+    }
+
+    @RequestMapping("/updatewares")
+    public ResultInfo updateWares(Wares wares){
+
+        if (wares.getPid() == null && wares.getPflag() == null){
+            return new ResultInfo(false,null,"更新失败，请确保商品id或商品编号不为空！！");
+        }
+        waresService.updateWares(wares);
+        log.info("price:" + wares.getPrice());
+        log.info("pflag:" + wares.getPflag());
+        return new ResultInfo(true,null,"更新成功");
     }
 
 

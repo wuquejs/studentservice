@@ -38,4 +38,25 @@
     <select id="findWaresImagesByPid" resultType="cc.wuque.domain.WaresImages">
         select * from p_wares_img where pid = #{pid}
     </select>
+
+    <!--更新商品-->
+    <update id="updateWares">
+        UPDATE p_wares
+        <set>
+            <if test="pname != null">pname=#{pname},</if>
+            <if test="price != null">price=#{price},</if>
+            <if test="waresIntroduce != null">waresIntroduce=#{waresIntroduce},</if>
+            <if test="cid != null">cid=#{cid},</if>
+            <if test="img != null">img=#{img},</if>
+        </set>
+        <where>
+            <if test="pid != null">
+                pid = #{pid}
+            </if>
+            <if test="pflag != null">
+               AND pflag = #{pflag}
+            </if>
+
+        </where>
+    </update>
 </mapper>

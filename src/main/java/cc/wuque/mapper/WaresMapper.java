@@ -29,4 +29,6 @@ public interface WaresMapper {
     List<Wares> findWaresByCid(String cid);
 
     List<Wares> findWaresByUid(String uid);
+
+    void updateWares(Wares wares);
 }
