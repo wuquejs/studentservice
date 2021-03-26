@@ -28,3 +28,6 @@ http://localhost:8080/user/login
 http://localhost:8080/user/exit
 ##跳转到login.html页面
 
+###使用手机号获取验证码登录
+http://localhost:8080/user/phonelogin
+###参数验证码 手机号

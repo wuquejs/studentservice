@@ -5,9 +5,8 @@ import cc.wuque.domain.ResultInfo;
 import cc.wuque.domain.User;
 import cc.wuque.service.UserService;
 import cc.wuque.util.CheckCodeUtil;
+import cc.wuque.util.MD5Util;
 import cc.wuque.util.SmsUtil;
-import com.tencentcloudapi.sms.v20190711.models.SendSmsResponse;
-import com.tencentcloudapi.sms.v20190711.models.SendStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +24,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**
@@ -59,12 +60,7 @@ public class UserController {
         request.getSession().removeAttribute("CHECKCODE_SERVER");
         ResultInfo resultInfo = new ResultInfo();
 
-        if (checkcode_server == null || !checkcode_server.equalsIgnoreCase(checkCode)) {
-            resultInfo.setFlag(false);
-            resultInfo.setMsg("验证码错误");
-            return resultInfo;
-
-        }
+        if (isNull(user, checkCode, checkcode_server, resultInfo)) return resultInfo;
         userService.register(user);
         resultInfo.setFlag(true);
         resultInfo.setMsg("验证码错误");
@@ -107,11 +103,7 @@ public class UserController {
         ResultInfo resultInfo = new ResultInfo();
         log.info("checkcode_server = " + checkcode_server);
         log.info("checkCode = " + checkCode);
-        if (checkcode_server == null || !checkcode_server.equalsIgnoreCase(checkCode)) {
-            resultInfo.setFlag(false);
-            resultInfo.setMsg("验证码错误");
-            return resultInfo;
-        }
+        if (isNull(user, checkCode, checkcode_server, resultInfo)) return resultInfo;
         //调用service中的登录方法
         User u = userService.loginByUsernameAndPassword(user);
         //判断u是否为空
@@ -128,6 +120,49 @@ public class UserController {
         }
 
     }
+
+    /**
+     *
+     * @Author 无缺
+     * @Date 2021/3/25 12:16
+     * @param  user, checkCode, checkcode_server, resultInfo
+     * @return boolean
+     */
+    public boolean isNull(User user, @RequestParam("checkCode") String checkCode, String checkcode_server, ResultInfo resultInfo) {
+        if (checkcode_server == null || !checkcode_server.equalsIgnoreCase(checkCode)) {
+            resultInfo.setFlag(false);
+            resultInfo.setMsg("验证码错误");
+            return true;
+        }
+        try {
+            user.setPassword(MD5Util.encodeByMd5(user.getPassword()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * 使用手机号获取验证码登录
+     * @Author 无缺
+     * @Date 2021/3/24 23:51
+     * @param  phoneNumber 手机号、 codeNum验证码、 request
+     * @return
+     */
+    @RequestMapping("/phonelogin")
+    public ResultInfo loginByPhone(@RequestParam("phone") String phoneNumber, @RequestParam("codeNum") String codeNum, HttpServletRequest request){
+        String phone_number_checkcode = (String) request.getSession().getAttribute("PHONE_NUMBER_CHECKCODE");
+        request.getSession().removeAttribute("PHONE_NUMBER_CHECKCODE");
+        log.info("session中的验证码:" + phone_number_checkcode);
+        log.info("获取到的验证码" + codeNum);
+        if (!phone_number_checkcode.equals(codeNum)  || phone_number_checkcode.equals("")){
+            return new ResultInfo(false,null,"验证码错误");
+        }
+        User user = userService.findByPhoneNumber(phoneNumber);
+        return new ResultInfo(true,user,"登录成功");
+    }
+
+
 
     /**
      * 退出当前账户
@@ -215,17 +250,29 @@ public class UserController {
      * @return
      */
     @RequestMapping("/getCheckNum")
-    public ResultInfo getCheckCodeNum(@RequestParam("phoneNumber") String phoneNumber, HttpServletRequest request) {
+    public ResultInfo getCheckCodeNum(@RequestParam("phoneNumber") String phoneNumber, final HttpServletRequest request) {
         String codeNum = CheckCodeUtil.getCheckCodeNum();
-
-        SendSmsResponse sendSmsResponse = smsUtil.sendSms(phoneNumber, codeNum);
-        SendStatus[] s = sendSmsResponse.getSendStatusSet();
-        ResultInfo resultInfo = new ResultInfo(false, null, s[0].getMessage());
-        if (s[0].getCode() == "OK" && s[0].getCode().equals("OK")) {
-            request.getSession().setAttribute("PHONE_NUMBER_CHECKCODE", codeNum);
+        log.info("codeNum:" + codeNum);
+        //SendSmsResponse sendSmsResponse = smsUtil.sendSms(phoneNumber, codeNum);
+        //SendStatus[] s = sendSmsResponse.getSendStatusSet();
+        HttpSession session = request.getSession();
+        session.setAttribute("PHONE_NUMBER_CHECKCODE", codeNum);
+        ResultInfo resultInfo = new ResultInfo(false, codeNum, "s[0].getMessage()");
+        /*if (s[0].getCode() == "Ok" || s[0].getCode().equals("Ok")) {
+            session.setAttribute("PHONE_NUMBER_CHECKCODE", codeNum);
             resultInfo.setFlag(true);
             return resultInfo;
-        }
+        }*/
+
+        final Timer timer=new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                session.removeAttribute("PHONE_NUMBER_CHECKCODE");
+                log.info("codeNum: " + codeNum + "在session中删除成功");
+                timer.cancel();
+            }
+        },5*60*1000);
         return resultInfo;
     }
 

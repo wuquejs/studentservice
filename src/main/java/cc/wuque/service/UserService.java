@@ -41,4 +41,13 @@ public interface UserService {
      * @return
      */
     List<User> queryListUser();
+
+    /**
+     * 使用手机号登录用户
+     * @Author 无缺
+     * @Date 2021/3/24 23:57
+     * @param phoneNumber
+     * @return User
+     */
+    User findByPhoneNumber(String phoneNumber);
 }

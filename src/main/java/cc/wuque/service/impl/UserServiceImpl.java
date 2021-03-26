@@ -48,4 +48,9 @@ public class UserServiceImpl implements UserService {
         return userMapper.queryUserList();
     }
 
+    @Override
+    public User findByPhoneNumber(String phoneNumber) {
+        return userMapper.findByPhoneNumber(phoneNumber);
+    }
+
 }

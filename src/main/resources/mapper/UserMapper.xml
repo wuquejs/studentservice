@@ -20,5 +20,10 @@
         where username = #{username}
           and password = #{password}
     </select>
+    <select id="findByPhoneNumber" resultType="cc.wuque.domain.User">
+        select *
+        from s_users
+        where phonenumber = #{phonenumber}
+    </select>
 </mapper>
 
