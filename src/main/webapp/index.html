@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax测试</title>
+</head>
+<body>
+    <div id="div"></div>
+</body>
+<script src="http://demo.25wz.cn/js/jquery-2.0.3.min.js"></script>
+
+    <script>
+        $(function () {
+            findAll();
+        });
+
+        function findAll() {
+            $.ajax({
+                url:"/user/login",
+                type:"post",
+                data:{
+                    username:"test",
+                    password:"13456",
+                    checkcode:"123456"
+                },
+                dataType:"json",
+                success:function (res) {
+                    alert(res.flag);
+                    alert(res.data);
+                    alert(res.msg);
+
+
+                },
+                error:function (error) {
+
+                }
+
+            })
+        };
+    </script>
+</html>
