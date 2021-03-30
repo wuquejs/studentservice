@@ -1,0 +1,7 @@
+##添加订单信息
+http://localhost:8080/order/addOrder
+##@param HttpServletRequest, Wares,Order
+##@return ResultInfo
+
+##更新订单状态
+http://localhost:8080/order/updateOrder

@@ -8,15 +8,25 @@ import java.io.Serializable;
  * 用户实体类
  */
 public class User implements Serializable {
+    //用户主键
     private String uid;
+    //用户名
     private String username;
+    //密码
     private String password;
+    //性别
     private String sex;
+    //出生日期
     private String birthdate;
+    //手机号
     private String phonenumber;
+    //QQ号
     private String qqnumber;
+    //微信号
     private String wechat_id;
+    //真实姓名
     private String name;
+    //用户状态
     private String status;
 
     @Override

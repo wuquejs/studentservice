@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.wuque.mapper.OrderMapper">
+    <!--添加订单-->
+    <insert id="addOrder" >
+        insert into
+            p_order(stater,input1,input2,input3,b_uid,s_uid,price,addtime,pid,cid)
+         value
+            (#{stater},#{input1},#{input2},#{input3},#{b_uid},#{s_uid},#{price},#{addtime},#{pid},#{cid})
+    </insert>
+
+    <!--根据oid查询订单信息-->
+    <select id="findOrderByOid" resultType="cc.wuque.domain.Order">
+        select * from
+                p_order
+        where oid = #{oid}
+    </select>
+    <!--根据oid查询卖家id-->
+    <select id="findS_uidByOid" resultType="String">
+        select s_uid from
+                p_order
+        where oid = #{oid}
+    </select>
+    <!--根据oid查询买家id-->
+    <select id="findB_uidByOid" resultType="String">
+        select b_uid from
+            p_order
+        where oid = #{oid}
+    </select>
+    <!--更新订单状态-->
+    <update id="updateOrder" >
+        update p_order
+        set stater
+        where oid = #{oid}
+    </update>
+</mapper>

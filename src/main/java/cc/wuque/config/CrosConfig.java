@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @Author 无缺
  * @Date 2021/3/28 13:41
  */
-@Configuration
+/*@Configuration
 public class CrosConfig{
     private CorsConfiguration buildConfig() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
@@ -30,7 +30,7 @@ public class CrosConfig{
         return new CorsFilter(source);
     }
 
-    /*@Override
+    @Override
     public void addCorsMappings(CorsRegistry registry){
         registry.addMapping("/**")
                 .allowedOrigins("*")
@@ -38,5 +38,5 @@ public class CrosConfig{
                 .allowCredentials(true)
                 .maxAge(3600)
                 .allowedHeaders("*");
-    }*/
-}
+    }
+}*/

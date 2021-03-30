@@ -29,12 +29,13 @@ import java.util.TimerTask;
 
 
 /**
+ * 用户控制层
  * @Author 无缺
  * @Date 2021/3/19 21:27
  */
 @Controller
 @ResponseBody
-@RequestMapping(value = "/user", produces = "application/json;charset=UTF-8")
+@RequestMapping("/user")
 public class UserController {
 
     public Logger log = LoggerFactory.getLogger(StudentserviceApplication.class);
@@ -94,6 +95,11 @@ public class UserController {
      */
     @RequestMapping("/login")
     public ResultInfo loginByUsernameAndPassword(HttpServletRequest request, User user, @RequestParam("checkCode") String checkCode) {
+        String username = request.getParameter("username");
+        log.info("request中的username =" + username);
+        log.info("username = :"  +user.getUsername());
+        log.info("password = " + user.getPassword());
+        log.info("checkCode = " + checkCode);
         //获取session
         HttpSession session = request.getSession();
         //获取session中的验证码，并强转为String类型
@@ -102,7 +108,6 @@ public class UserController {
         session.removeAttribute("CHECKCODE_SERVER");
         ResultInfo resultInfo = new ResultInfo();
         log.info("checkcode_server = " + checkcode_server);
-        log.info("checkCode = " + checkCode);
         if (isNull(user, checkCode, checkcode_server, resultInfo)) return resultInfo;
         //调用service中的登录方法
         User u = userService.loginByUsernameAndPassword(user);
@@ -135,6 +140,7 @@ public class UserController {
             return true;
         }
         try {
+            //把接收到的密码通过md5加密
             user.setPassword(MD5Util.encodeByMd5(user.getPassword()));
         } catch (Exception e) {
             e.printStackTrace();
@@ -265,9 +271,11 @@ public class UserController {
         }*/
 
         final Timer timer=new Timer();
+        //使获取到的验证码五分钟内有效，定时计划，在五分钟后自动删除验证码
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
+                //删除session中的PHONE_NUMBER_CHECKCODE
                 session.removeAttribute("PHONE_NUMBER_CHECKCODE");
                 log.info("codeNum: " + codeNum + "在session中删除成功");
                 timer.cancel();

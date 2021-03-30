@@ -27,13 +27,17 @@ public class WaresImpl implements WaresService {
     public void addWares(Wares wares) {
         log.info(wares.toString());
         waresMapper.addWares(wares);
-
         for (String bigimg : wares.getPimage()){
             log.info("pid:" + wares.getPid());
             waresMapper.addWaresImg(waresMapper.getPid(wares.getPflag()),bigimg);
         }
 
 
+    }
+
+    @Override
+    public String getPid(String pflag){
+        return waresMapper.getPid(pflag);
     }
 
     @Override
