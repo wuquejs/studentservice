@@ -38,7 +38,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void updateOrder(int stater) {
-        orderMapper.updateOrder(stater);
+    public void updateOrder(int stater, int oid) {
+        orderMapper.updateOrder(stater,oid);
     }
 }

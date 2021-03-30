@@ -31,7 +31,7 @@
     <!--更新订单状态-->
     <update id="updateOrder" >
         update p_order
-        set stater
+        set stater = #{stater}
         where oid = #{oid}
     </update>
 </mapper>

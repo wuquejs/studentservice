@@ -39,5 +39,5 @@ public interface OrderService {
      */
     String findB_uidByOid(int oid);
 
-    void updateOrder(int stater);
+    void updateOrder(int stater,int oid);
 }
