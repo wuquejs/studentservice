@@ -51,7 +51,7 @@ public class OrderController {
         }else {
             wares = waresService.findWaresByPid(wares.getPid());
         }
-        log.info("Wares:" + wares.toString());
+        //log.info("Wares:" + wares.toString());
         order.setPid(wares.getPid());
         //set商品的分类id和商品id
         order.setPid(wares.getPid());
@@ -69,7 +69,7 @@ public class OrderController {
         User user = (User) session.getAttribute("user");
         order.setB_uid("1");
 
-        log.info("Order:" + order.toString());
+        //log.info("Order:" + order.toString());
         //调用service层
         orderService.addOrder(order);
         return new ResultInfo(true,order,"成功");
@@ -92,11 +92,11 @@ public class OrderController {
         String s_uid = orderService.findS_uidByOid(order.getOid());
         String b_uid = orderService.findB_uidByOid(order.getOid());
         String uid = user.getUid();
-        log.info("s_uid = " + s_uid);
-        log.info("b_uid = " + b_uid);
-        log.info("uid = " + uid);
-        System.out.println(s_uid == uid);
-        System.out.println(b_uid == uid);
+//        log.info("s_uid = " + s_uid);
+//        log.info("b_uid = " + b_uid);
+//        log.info("uid = " + uid);
+//        System.out.println(s_uid == uid);
+//        System.out.println(b_uid == uid);
         //判断当前操作是否正确
 
         /**
@@ -108,7 +108,7 @@ public class OrderController {
          */
         //如果传过来的Stater == 3 则更新状态为已发货
         if (order.getStater() == 3){
-            log.info("Stater = " + order.getStater());
+            //log.info("Stater = " + order.getStater());
             //判断当前操作所登录的用户是否有权限
             if (!s_uid.equals(uid)){
                 return new ResultInfo(false,null,"您无权进行此操作");
@@ -123,12 +123,16 @@ public class OrderController {
                 return new ResultInfo(false,null,"您无权进行此操作");
             }else {
                 orderService.updateOrder(order.getStater(),order.getOid());
+
                 return new ResultInfo(true,null,"更新成功");
             }
         }else {
             return new ResultInfo(false,null,"您提交的状态有误，请重新提交！");
         }
     }
+
+
+
 
 
 }
