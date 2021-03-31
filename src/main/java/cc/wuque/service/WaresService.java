@@ -20,6 +20,15 @@ public interface WaresService {
     void addWares(Wares wares);
 
     /**
+     * 根据pflag查询pid
+     * @Author 无缺
+     * @Date 2021/3/30 15:24
+     * @param
+     * @return
+     */
+    String getPid(String pflag);
+
+    /**
      * 查询全部商品
      *
      * @return
