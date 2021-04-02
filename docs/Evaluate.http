@@ -1,0 +1,3 @@
+###添加评价
+http://localhost:8080/Evaluate/addEvaluate
+###必须的参数oid、content、stater

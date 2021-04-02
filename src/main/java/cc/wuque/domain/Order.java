@@ -20,7 +20,7 @@ public class Order implements Serializable {
     private String input2;
     //用户信息
     private String input3;
-    //卖家id
+    //买家id
     private String b_uid;
     //卖家id
     private String s_uid;

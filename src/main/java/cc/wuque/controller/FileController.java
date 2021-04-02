@@ -50,7 +50,7 @@ public class FileController {
 
         //循环判断上传的图片格式是否和上传的格式相同，如果不同则直接返回
         for (int i = 0; i < suffix.length; i++) {
-            if (suffixName.equals(suffix)) {
+            if (suffixName.equalsIgnoreCase(suffix[i])) {
                 resultInfo = upload(imgFile, suffixName);
                 return resultInfo;
             }

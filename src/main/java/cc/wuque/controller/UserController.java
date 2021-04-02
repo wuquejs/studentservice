@@ -235,7 +235,7 @@ public class UserController {
         request.getSession().setAttribute("CHECKCODE_SERVER", checkCode);
 
         //设置画笔颜色为黄色
-        g.setColor(Color.YELLOW);
+        g.setColor(Color.black);
         //设置字体的小大
         g.setFont(new Font("黑体", Font.BOLD, 24));
         //向图片上写入验证码
@@ -250,7 +250,7 @@ public class UserController {
 
     /**
      * 发送一个六位数的手机验证码
-     *
+     *  测试版，不会发送验证码到手机
      * @param phoneNumber
      * @param request
      * @return

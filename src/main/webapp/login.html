@@ -113,16 +113,13 @@
                 let username = $('#username').val();
                 let Password = $('#Password').val();
                 let checkCode = $('#checkCode').val();
-                alert(username);
-                alert(Password);
-                alert(checkCode);
                 $.ajax({
                     url:"/user/login",
                     type:"post",
                     data:{
                         username: username,
                         Password: Password,
-                        checkCode: checkCodeXZ
+                        checkCode: checkCode
                     },
                     dataType:"json",
                     success:function(result){
