@@ -70,10 +70,10 @@
         <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
+        <!--redis的启动依赖-->
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.46</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
     </dependencies>
 

@@ -39,5 +39,6 @@ public interface OrderService {
      */
     String findB_uidByOid(int oid);
 
+    //更新订单状态
     void updateOrder(int stater,int oid);
 }
